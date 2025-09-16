@@ -1,0 +1,46 @@
+/**
+ * test scenario for usersReducer
+ *
+ * - usersReducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return the users when given by RECEIVE_USERS action
+ *
+ */
+
+import usersReducer from './reducer';
+import { ActionType } from './action';
+import { describe, expect, it } from 'vitest';
+
+describe('usersReducer function', () => {
+  it('should return the initial state when given by unknown action', () => {
+    // arrange
+    const initialState = [];
+    const action = { type: 'UNKNOWN' };
+    // action
+    const nextState = usersReducer(initialState, action);
+    // assert
+    expect(nextState).toEqual(initialState);
+  });
+
+  it('should return the users when given by RECEIVE_USERS action', () => {
+    // arrange
+    const initialState = [];
+    const action = {
+      type: ActionType.RECEIVE_USERS,
+      payload: {
+        users: [
+          {
+            id: 'jane_doe',
+            name: 'Jane Doe',
+            email: 'jane@example.com',
+            avatar: 'https://dummy-image-url.jpg',
+          },
+        ],
+      },
+    };
+    // action
+    const nextState = usersReducer(initialState, action);
+    // assert
+    expect(nextState).toEqual(action.payload.users);
+  });
+});
