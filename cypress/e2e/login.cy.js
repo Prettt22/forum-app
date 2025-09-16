@@ -83,7 +83,7 @@ describe('Login spec', () => {
       .click();
 
     // memverifikasi bahwa elemen yang berada di homepage ditampilkan
-    cy.get('nav')
+    cy.get('a')
       .contains(/^Forum App$/)
       .should('be.visible');
   });
