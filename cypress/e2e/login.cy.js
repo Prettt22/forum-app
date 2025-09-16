@@ -81,13 +81,10 @@ describe('Login spec', () => {
     cy.get('button')
       .contains(/^Login$/)
       .click();
-<<<<<<< HEAD
 
     // memverifikasi bahwa elemen yang berada di homepage ditampilkan
     cy.get('a')
       .contains(/^Forum App$/)
       .should('be.visible');
-=======
->>>>>>> origin
   });
 });
