@@ -21,37 +21,32 @@ describe('LoginInput component', () => {
   });
 
   it('should handle email typing correctly', async () => {
-    // arrange
     render(<LoginInput login={() => {}} />);
-    const emailInput = await screen.getByPlaceholderText('Email');
-    // action
+    const emailInput = await screen.getByTestId('email-input');
     await userEvent.type(emailInput, 'emailnya@gmail.com');
-    // assert
     expect(emailInput).toHaveValue('emailnya@gmail.com');
   });
 
   it('should handle password typing correctly', async () => {
-    // arrange
     render(<LoginInput login={() => {}} />);
-    const passwordInput = await screen.getByPlaceholderText('Password');
-    // action
+    const passwordInput = await screen.getByTestId('password-input');
     await userEvent.type(passwordInput, 'passwordnya');
-    // assert
     expect(passwordInput).toHaveValue('passwordnya');
   });
 
   it('should call login function when login button is clicked', async () => {
-    // Arrange
     const mockLogin = vi.fn();
     render(<LoginInput login={mockLogin} />);
-    const emailInput = await screen.getByPlaceholderText('Email');
+
+    const emailInput = await screen.getByTestId('email-input');
     await userEvent.type(emailInput, 'emailnya@gmail.com');
-    const passwordInput = await screen.getByPlaceholderText('Password');
+
+    const passwordInput = await screen.getByTestId('password-input');
     await userEvent.type(passwordInput, 'passwordnya');
-    const loginButton = await screen.getByRole('button', { name: 'Login' });
-    // Action
+
+    const loginButton = await screen.getByTestId('login-button');
     await userEvent.click(loginButton);
-    // Assert
+
     expect(mockLogin).toBeCalledWith({
       email: 'emailnya@gmail.com',
       password: 'passwordnya',

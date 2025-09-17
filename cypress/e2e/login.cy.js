@@ -7,6 +7,13 @@
  *   - should display homepage when email and password are correct
  */
 
+const TEST_DATA = {
+  validEmail: 'asd@d.com',
+  validPassword: 'asdasd',
+  invalidEmail: 'invalid@test.com',
+  invalidPassword: 'wrong_password',
+};
+
 describe('Login spec', () => {
   beforeEach(() => {
     cy.visit('http://localhost:5173/');
@@ -14,18 +21,14 @@ describe('Login spec', () => {
 
   it('should display login page correctly', () => {
     // memverifikasi elemen yang harus tampak pada halaman login
-    cy.get('input[placeholder="Email"]').should('be.visible');
-    cy.get('input[placeholder="Password"]').should('be.visible');
-    cy.get('button')
-      .contains(/^Login$/)
-      .should('be.visible');
+    cy.get('[data-testid="email-input"]').should('be.visible');
+    cy.get('[data-testid="password-input"]').should('be.visible');
+    cy.get('[data-testid="login-button"]').should('be.visible');
   });
 
   it('should display alert when email is empty', () => {
     // klik tombol login tanpa mengisi email
-    cy.get('button')
-      .contains(/^Login$/)
-      .click();
+    cy.get('[data-testid="login-button"]').click();
 
     // memverifikasi window.alert untuk menampilkan pesan dari API
     cy.on('window:alert', (str) => {
@@ -35,14 +38,10 @@ describe('Login spec', () => {
 
   it('should display alert when password is empty', () => {
     // mengisi email
-    cy.get('input[placeholder="Email"]').type(
-      'testemail@test.com',
-    );
+    cy.get('[data-testid="email-input"]').type(TEST_DATA.invalidEmail);
 
     // klik tombol login tanpa mengisi password
-    cy.get('button')
-      .contains(/^Login$/)
-      .click();
+    cy.get('[data-testid="login-button"]').click();
 
     // memverifikasi window.alert untuk menampilkan pesan dari API
     cy.on('window:alert', (str) => {
@@ -52,17 +51,15 @@ describe('Login spec', () => {
 
   it('should display alert when email and password are wrong', () => {
     // mengisi email
-    cy.get('input[placeholder="Email"]').type(
-      'testemail@test.com',
-    );
+    cy.get('[data-testid="email-input"]').type(TEST_DATA.invalidEmail);
 
     // mengisi password yang salah
-    cy.get('input[placeholder="Password"]').type('wrong_password');
+    cy.get('[data-testid="password-input"]').type(
+      TEST_DATA.invalidPassword,
+    );
 
     // menekan tombol Login
-    cy.get('button')
-      .contains(/^Login$/)
-      .click();
+    cy.get('[data-testid="login-button"]').click();
 
     // memverifikasi window.alert untuk menampilkan pesan dari API
     cy.on('window:alert', (str) => {
@@ -72,15 +69,13 @@ describe('Login spec', () => {
 
   it('should display homepage when email and password are correct', () => {
     // mengisi email
-    cy.get('input[placeholder="Email"]').type('asd@d.com');
+    cy.get('[data-testid="email-input"]').type(TEST_DATA.validEmail);
 
     // mengisi password
-    cy.get('input[placeholder="Password"]').type('asdasd');
+    cy.get('[data-testid="password-input"]').type(TEST_DATA.validPassword);
 
     // menekan tombol Login
-    cy.get('button')
-      .contains(/^Login$/)
-      .click();
+    cy.get('[data-testid="login-button"]').click();
 
     // memverifikasi bahwa elemen yang berada di homepage ditampilkan
     cy.get('nav')

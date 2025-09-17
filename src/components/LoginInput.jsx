@@ -22,6 +22,7 @@ function LoginInput({ login }) {
           value={email}
           onChange={onEmailChange}
           placeholder='Email'
+          data-testid='email-input'
           className='w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none'
         />
       </div>
@@ -31,6 +32,7 @@ function LoginInput({ login }) {
           value={password}
           onChange={onPasswordChange}
           placeholder='Password'
+          data-testid='password-input'
           className='w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none pr-10'
         />
         <button
@@ -44,6 +46,7 @@ function LoginInput({ login }) {
 
       <button
         type='submit'
+        data-testid='login-button'
         className='w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition cursor-pointer'
       >
         Login
